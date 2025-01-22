@@ -34,15 +34,10 @@
             transform: translateX(-30%);
         }
         
-        
-        
-        /* Add Font Awesome */
-        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
-        
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Neutra Text', sans-serif; /* Using Neutra Text font */
+            font-family: 'Neutra Text', sans-serif;
             overflow: hidden;
         }
         
@@ -53,8 +48,6 @@
             overflow: hidden;
         }
         
-        
-        /* Hover Pane */
         #hover-pane {
             position: absolute;
             top: 10px;
@@ -72,7 +65,6 @@
             display: none;
         }
         
-        /* Close Button */
         #close-hover-pane{
             position: absolute;
             top: 5px;
@@ -103,8 +95,8 @@
         
         #more-info-button:hover {
             background-color: #52b788;
-            transform: translateY(-0.5px); /* Slight lift effect */
-            box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2); /* Darker, larger shadow */
+            transform: translateY(-0.5px);
+            box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
         }
         
         .coordinates-display {
@@ -121,27 +113,59 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             margin-left:90px;
             z-index: 1000;
-            pointer-events: none; /* Prevent blocking interactions with the map */
-          }
+            pointer-events: none;
+        }
+
+        /* Logout Button Styles */
+        #logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ff4b5c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #logout-button:hover {
+            background-color: #e63946;
+            transform: translateY(-2px);
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4);
+        }
     </style>
 </head>
 <body>
-    
-
     <div class="main-container">
-        <!-- Content Area -->
         <div class="content-container">
-            <!-- Map Container -->
             <div id="map-container" class="map-container"></div>
         </div>
-
-         <!-- Coordinates Display -->
-         <div id="coordinates-display" class="coordinates-display"></div>
+        <div id="coordinates-display" class="coordinates-display"></div>
     </div>
 
-    <!-- Scripts -->
+    <!-- Logout Button -->
+    <button id="logout-button" onclick="logout()">Log Out</button>
+
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./bundle/js/provinces.js"></script>
+    <script>
+        function logout() {
+            // Clear session storage or cookies if used
+            sessionStorage.clear();
+
+            // Redirect to the login page
+            window.location.href = "index.html";
+
+            // Prevent going back to the previous page
+            window.history.replaceState(null, null, window.location.href);
+
+        }
+    </script>
 </body>
 </html>

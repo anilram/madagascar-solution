@@ -25,6 +25,8 @@ app.use('/farms.html', express.static(path.join(__dirname, 'farms.html')));
 
 // Serve map.html explicitly
 app.use('/provinces.html', express.static(path.join(__dirname, 'provinces.html')));
+// Serve map.html explicitly
+app.use('/index.html', express.static(path.join(__dirname, 'index.html')));
 
 // Static email and password for login validation
 const STATIC_USERNAME = 'madagascar_gov';
@@ -32,11 +34,10 @@ const STATIC_PASSWORD = 'agri123';
 
 // Route for handling login
 app.post('/login', (req, res) => {
-  debugger;
   const { username, password } = req.body;
 
   if (username === STATIC_USERNAME && password === STATIC_PASSWORD) {
-    window.open('/provinces.html');  // Redirect to map.html on successful login
+    res.redirect('/provinces.html');  // Redirect to map.html on successful login
   } else {
     res.send(`<script>alert("Invalid email or password!"); window.location.href = "/";</script>`);
   }

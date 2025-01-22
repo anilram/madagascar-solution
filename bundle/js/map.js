@@ -23,28 +23,28 @@ let rasterVisibility = {};
 const rasterLayers = [
   {
     id: 'ORI',
-    name: 'ORI',
+    name: 'Ortho Rectified Image (ORI)',
     tileset: 'mapbox://rayapati49.madagascar-poc-ori',
     order: 0,
     type:0,
   },
   {
     id: 'dem',
-    name: 'DEM',
+    name: 'Digital Elevation Model (DEM)',
     tileset: 'mapbox://rayapati49.madagascar-poc-dem',
     order: 1,
     type:0,
   },
   {
     id: 'ndvi',
-    name: 'NDVI',
+    name: 'Normalized Difference Vegetation Index (NDVI)',
     tileset: 'mapbox://rayapati49.madagascar-poc-ndvi',
     order: 2,
     type:1,
   },
   {
     id: 'ndwi',
-    name: 'NDWI',
+    name: 'Normalized Difference Water Index',
     tileset: 'mapbox://rayapati49.madagascar-poc-ndwi',
     order: 3,
     type:1,

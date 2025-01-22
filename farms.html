@@ -7,14 +7,80 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
     <link href="./bundle/css/map.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            z-index: 1000;
+            display: none;
+        }
+        .popup .close-btn {
+            background-color: transparent;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .popup .close-btn:hover {
+            background-color: red;
+            color: white;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+        #fertilizer-button {
+            cursor: pointer;
+            margin: auto;
+            font-size: 16px;
+            background-color: rgba(15, 121, 15, 0.532);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Logout Button Styles */
+        #logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ff4b5c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        #logout-button:hover {
+            background-color: #e63946;
+            transform: translateY(-2px);
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4);
+        }
+    </style>
 </head>
 <body>
     
-
     <div class="main-container">
         <!-- Sidebar -->
         <div class="sidebar">
-            <!-- Map Controls Section -->
             <div class="section-title" id="Madagascar-sub">
                 <img 
                   src="./bundle/assets/img3.png" 
@@ -24,17 +90,12 @@
                 ></div>
             <div class="layer-sidebar">
                 <div id="layer-container">
-                    <div class="subsection-title" id="layer-sub">Layers
-                       
-                    </div>
-                    
+                    <div class="subsection-title" id="layer-sub">Layers</div>
                 </div>
             </div>
             <div class="layer-sidebar">
                 <div id="indices-container">
-                    <div class="subsection-title" id="index-sub">Indices
-                       
-                    </div>
+                    <div class="subsection-title" id="index-sub">Indices</div>
                 </div>
             </div>
             <div class="layer-sidebar">
@@ -44,8 +105,13 @@
                     </div>
                 </div>
             </div>
-
-           
+            <div class="layer-sidebar" style="box-shadow:none">
+                <div id="farms-container">
+                    <div class="subsection-title" id="farm-sub" style="display:flex;border:none;margin:0px;padding:0px">
+                        <button id="fertilizer-button" class="btn">Fertilizer Requirement</button>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <!-- Content Area -->
@@ -58,9 +124,77 @@
          <div id="coordinates-display" class="coordinates-display"></div>
     </div>
 
+    <!-- Popup -->
+    <div class="overlay" id="popup-overlay"></div>
+    <div class="popup" id="fertilizer-popup">
+        <div class="subsection-title" id="farm-sub" style="display: flex; justify-content: space-between; align-items: center;">
+            <p class="text-alignment">Fertilizer Requirement</p>
+            <button class="close-btn" id="close-popup">X</button>
+        </div>
+        <div class="details">
+            <h4>Region: Alaotra</h4>
+            <p><strong>No of Farms:</strong> 542</p>
+            <p><strong>No of Owners:</strong> 675</p>
+            <p><strong>Total Area:</strong> 5084 acres</p>
+            <p><strong>Crop Types:</strong> Rice</p>
+        </div>
+        <div class="fertilizer-requirement">
+            <h4 style="margin:5px">Fertilizer Requirement</h4>
+            <ul style="margin-top:5px">
+                <li><strong>Urea:</strong> 559 Tonnes (110 Kgs/acre)</li>
+                <li><strong>SSP:</strong> 381 Tonnes (75 Kgs/acre)</li>
+                <li><strong>MOP:</strong> 101 Tonnes (20 Kgs/acre)</li>
+            </ul>
+        </div>
+        <div class="considerations">
+            <h4 style="margin:5px">Considerations</h4>
+            <ul style="margin-top:5px;">
+                <li><strong>Urea Consumption:</strong> 110 Kgs/acre</li>
+                <li><strong>SSP Consumption:</strong> 75 Kgs/acre</li>
+                <li><strong>MOP Consumption:</strong> 20 Kgs/acre</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Logout Button -->
+    <button id="logout-button" onclick="logout()">Log Out</button>
+
     <!-- Scripts -->
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./bundle/js/map.js"></script>
+    <script>
+        const fertilizerButton = document.getElementById('fertilizer-button');
+        const popup = document.getElementById('fertilizer-popup');
+        const overlay = document.getElementById('popup-overlay');
+        const closeButton = document.getElementById('close-popup');
+
+        fertilizerButton.addEventListener('click', () => {
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+        });
+
+        closeButton.addEventListener('click', () => {
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+
+        overlay.addEventListener('click', () => {
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+
+        function logout() {
+           // Clear session storage or cookies if used
+            sessionStorage.clear();
+
+            // Redirect to the login page
+            window.location.href = "index.html";
+
+            // Prevent going back to the previous page
+            window.history.replaceState(null, null, window.location.href);
+
+        }
+    </script>
 </body>
 </html>
