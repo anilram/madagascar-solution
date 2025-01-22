@@ -302,7 +302,7 @@ body {
 /* Hover Pane */
 #hover-pane {
   position: absolute;
-  top: 10px;
+  top: 70px;
   right: 10px;
   width: 270px;
   height: auto;

@@ -44,7 +44,7 @@ const rasterLayers = [
   },
   {
     id: 'ndwi',
-    name: 'Normalized Difference Water Index',
+    name: 'Normalized Difference Water Index (NDWI)',
     tileset: 'mapbox://rayapati49.madagascar-poc-ndwi',
     order: 3,
     type:1,

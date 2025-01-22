@@ -120,9 +120,27 @@ function addProvinces(geoJSON) {
           <p><strong>Population (2018 Census):</strong> ${population}</p>
           <p><strong>Density:</strong> ${Density}</p>
           <p><strong>Capital:</strong> ${Capital}</p>
-          <button id="more-info-button">Click for field details</button>
+          <button id="more-info-button" style="display: none;">Click for field details</button>
         `;
   
+        //Display button or not
+        const ProvinceData = {
+          "province": {
+            "Province_Name": "Alaotra Mangoro"
+          }
+        };
+
+        if (Province_Name === "Alaotra Mangoro") {
+          // Display the button if the user is logged in
+          document.getElementById('more-info-button').style.display = 'block';
+          console.log (1)
+        } else {
+          // Optionally, you can hide the button if the user is not logged in
+          document.getElementById('more-info-button').style.display = 'none';
+          console.log(2)
+        }
+        
+        
         // Close hover pane button
         document.getElementById('close-hover-pane').addEventListener('click', () => {
           hoverPane.style.display = 'none';

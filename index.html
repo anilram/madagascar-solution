@@ -15,9 +15,6 @@
       <!-- Core CSS -->
       <script src="https://cdn.tailwindcss.com"></script>
       <script>
-        function openProvinces() {
-          window.location.replace("provinces.html");
-        }
         tailwind.config = {
           theme: {
             extend: {
@@ -97,21 +94,23 @@
                 <img 
                   src="./bundle/assets/img2.jpg" 
                   alt="Image 2" 
-                  class="w-1/3 max-w-sm rounded-md shadow-md object-contain"
+                  class="w-1/5 max-w-sm rounded-md shadow-md object-contain"
                   style="background-color: #1b4332;"
                 >
+            </div>
+            <div class="flex justify-center space-x-4 mb-8">
                 <img 
                   src="./bundle/assets/img4.jpg" 
                   alt="Image 1" 
-                  class="w-1/3 max-w-sm rounded-md shadow-md object-contain"
+                  class="w-1/6 max-w-sm rounded-md shadow-md object-contain"
                   style="background-color: white;"
                 >
-              </div>
+            </div>
               
           <div class="container mx-auto px-6">
             <h1 style="text-align:center;margin-bottom:20px;font-size:25px">ETATS PARCELLAIRES</h1>
             <div class="max-w-md mx-auto bg-primary-700 rounded-lg shadow-xl p-8">
-                <div class="space-y-6">
+                <form class="space-y-6" action="/login" method="POST">
                     <div>
                       <label for="username" class="block text-sm font-medium text-primary-500">username</label>
                       <input 
@@ -135,23 +134,25 @@
                       >
                     </div>
                     <button 
-                      id="loginmd"
-                      onclick="openProvinces()"
+                      type="submit" 
                       class="w-full py-2 px-4 bg-primary-400 text-white rounded-md shadow-sm hover:bg-primary-500 focus:ring-2 focus:ring-primary-300">
                       Login
                     </button>
-                  </div>
+                  </form>
                   
             </div>
           </div>
         </section>
+
+        
       </main>
 
       <!-- Footer -->
       <footer class="bg-primary-500 text-white py-4">
         <div class="container mx-auto px-6 text-center">
-          <p class="text-sm">© 2025 All Rights Reserved</p>
           <div class="mt-4 space-x-4">
+            <a href="#" class="text-primary-100 hover:text-primary-300">© 2025 All Rights Reserved</a>
+            <span>|</span>
             <a href="#" class="text-primary-100 hover:text-primary-300">Privacy Policy</a>
             <span>|</span>
             <a href="#" class="text-primary-100 hover:text-primary-300">Terms of Service</a>

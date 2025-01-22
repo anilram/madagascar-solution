@@ -50,7 +50,7 @@
         
         #hover-pane {
             position: absolute;
-            top: 10px;
+            top: 70px;
             right: 10px;
             width: 270px;
             height: auto;
@@ -119,8 +119,8 @@
         /* Logout Button Styles */
         #logout-button {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            bottom: 20px;
+            left: 20px;
             background-color: #ff4b5c;
             color: white;
             border: none;
@@ -156,16 +156,17 @@
     <script src="./bundle/js/provinces.js"></script>
     <script>
         function logout() {
-            // Clear session storage or cookies if used
-            sessionStorage.clear();
-
-            // Redirect to the login page
-            window.location.href = "index.html";
-
-            // Prevent going back to the previous page
-            window.history.replaceState(null, null, window.location.href);
-
-        }
+            fetch('/logout', {
+              method: 'POST',
+            })
+              .then(response => {
+                if (response.redirected) {
+                  window.location.href = response.url;
+                }
+              })
+              .catch(err => console.error('Logout failed:', err));
+          }
+          
     </script>
 </body>
 </html>
