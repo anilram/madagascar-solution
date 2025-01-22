@@ -32,10 +32,11 @@ const STATIC_PASSWORD = 'agri123';
 
 // Route for handling login
 app.post('/login', (req, res) => {
+  debugger;
   const { username, password } = req.body;
 
   if (username === STATIC_USERNAME && password === STATIC_PASSWORD) {
-    res.redirect('/provinces.html');  // Redirect to map.html on successful login
+    window.open('/provinces.html');  // Redirect to map.html on successful login
   } else {
     res.send(`<script>alert("Invalid email or password!"); window.location.href = "/";</script>`);
   }
