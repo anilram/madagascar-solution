@@ -156,15 +156,16 @@
     <script src="./bundle/js/provinces.js"></script>
     <script>
         function logout() {
-            fetch('/logout', {
-              method: 'POST',
-            })
-              .then(response => {
-                if (response.redirected) {
-                  window.location.href = response.url;
-                }
-              })
-              .catch(err => console.error('Logout failed:', err));
+            window.location.replace("index.html");
+            // fetch('/logout', {
+            //   method: 'POST',
+            // })
+            //   .then(response => {
+            //     if (response.redirected) {
+            //       window.location.href = response.url;
+            //     }
+            //   })
+            //   .catch(err => console.error('Logout failed:', err));
           }
           
     </script>

@@ -15,6 +15,18 @@
       <!-- Core CSS -->
       <script src="https://cdn.tailwindcss.com"></script>
       <script>
+        function login(event) {
+          event.preventDefault();
+          const errorMessage = document.getElementById('error-message');
+          errorMessage.classList.add('hidden');
+          const username = document.getElementById('username').value;
+          const password = document.getElementById('password').value; 
+          if(username === 'madagascar_gov' && password === 'agri123') {
+              window.location.replace("provinces.html");
+          } else {
+            errorMessage.classList.remove('hidden');
+          }
+        }
         tailwind.config = {
           theme: {
             extend: {
@@ -110,9 +122,9 @@
           <div class="container mx-auto px-6">
             <h1 style="text-align:center;margin-bottom:20px;font-size:25px">ETATS PARCELLAIRES</h1>
             <div class="max-w-md mx-auto bg-primary-700 rounded-lg shadow-xl p-8">
-                <form class="space-y-6" action="/login" method="POST">
+                <form class="space-y-6" action="#" onsubmit="login(event)">
                     <div>
-                      <label for="username" class="block text-sm font-medium text-primary-500">username</label>
+                      <label for="username" class="block text-sm font-medium text-primary-500">Username</label>
                       <input 
                         type="username" 
                         id="username" 
@@ -133,6 +145,7 @@
                         required
                       >
                     </div>
+                    <p id="error-message" class="mt-2 text-sm text-red-500 hidden">Invalid username or password</p>
                     <button 
                       type="submit" 
                       class="w-full py-2 px-4 bg-primary-400 text-white rounded-md shadow-sm hover:bg-primary-500 focus:ring-2 focus:ring-primary-300">
