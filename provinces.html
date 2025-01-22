@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madagascar Farms</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Content and Model Viewer Styles */
+        .content-container {
+            flex: 1;
+            margin-left: 0;
+            transition: margin-left 0.3s ease-in-out;
+            position: relative;
+        }
+  
+        /* Map container styles */
+        #map-container {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            transition: transform 0.4s ease;
+        }
+        
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        #map-container.shifted {
+            transform: translateX(-30%);
+        }
+        
+        
+        
+        /* Add Font Awesome */
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Neutra Text', sans-serif; /* Using Neutra Text font */
+            overflow: hidden;
+        }
+        
+        .main-container {
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        
+        /* Hover Pane */
+        #hover-pane {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 270px;
+            height: auto;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            z-index: 1000;
+            padding: 10px;
+            padding-bottom: 0px;
+            overflow: auto;
+            display: none;
+        }
+        
+        /* Close Button */
+        #close-hover-pane{
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: transparent;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        #close-hover-pane:hover {
+            background-color: red;
+            color: white;
+        }
+
+        #more-info-button {
+            margin-bottom: 10px;
+            background-color: #95d5b2;
+            border-radius: 4px;
+            border: 1px solid black;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        #more-info-button:hover {
+            background-color: #52b788;
+            transform: translateY(-0.5px); /* Slight lift effect */
+            box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2); /* Darker, larger shadow */
+        }
+        
+        .coordinates-display {
+            position: absolute;
+            bottom: 20px;
+            right: -120px;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-left:90px;
+            z-index: 1000;
+            pointer-events: none; /* Prevent blocking interactions with the map */
+          }
+    </style>
+</head>
+<body>
+    
+
+    <div class="main-container">
+        <!-- Content Area -->
+        <div class="content-container">
+            <!-- Map Container -->
+            <div id="map-container" class="map-container"></div>
+        </div>
+
+         <!-- Coordinates Display -->
+         <div id="coordinates-display" class="coordinates-display"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./bundle/js/provinces.js"></script>
+</body>
+</html>
