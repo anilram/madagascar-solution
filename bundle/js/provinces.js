@@ -103,6 +103,7 @@ function addProvinces(geoJSON) {
           'text-halo-width': 1.5,
         },
       });
+      
   
       // Add a click event to display province details in the hover pane
       map.on('click', layerId, () => {
